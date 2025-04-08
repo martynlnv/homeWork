@@ -11,18 +11,18 @@ driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install())
 driver.get('https://bonigarcia.dev/selenium-webdriver-java/loading-images.html')
 
 
-img = WebDriverWait(driver, 10)
-img.until(
+images = WebDriverWait(driver, 10)
+images.until(
     EC.text_to_be_present_in_element((By.CSS_SELECTOR, '#text'), "Done!")
 )
 # идем по ветке
 div = driver.find_element(By.CSS_SELECTOR, "#image-container")
 
 # ищем все элементы
-imgs = driver.find_elements(By.CSS_SELECTOR, 'img')
-img = imgs[3]
+images = driver.find_elements(By.CSS_SELECTOR, 'img')
+third_images = images[3]
 
 # запрашиваем атрибуты и помещаем в переменную src
-src = img.get_attribute('src')
-print(src)
+
+print(images)
 driver.quit()
