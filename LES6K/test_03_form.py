@@ -1,9 +1,7 @@
 import pytest
 from selenium import webdriver
 from selenium.webdriver.common.by import By
-from selenium.webdriver.common.keys import Keys
-from selenium .webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
+
 
 @pytest.fixture
 def driver():
@@ -11,8 +9,8 @@ def driver():
     yield driver
     driver.quit()
 
+
 def test_buy_items_and_check_total(driver):
-# Тест для покупки товаров в SauceDemo и проверки итоговой суммы
     driver.get('https://www.saucedemo.com/')
 
     # Авторизация
@@ -25,15 +23,19 @@ def test_buy_items_and_check_total(driver):
     login_button.click()
 
     # Добавление товаров в корзину
-    driver.find_element(By.CSS_SELECTOR, "#add-to-cart-sauce-labs-backpack").click()
-    driver.find_element(By.CSS_SELECTOR,"#add-to-cart-sauce-labs-bolt-t-shirt").click()
-    driver.find_element(By.CSS_SELECTOR,"#add-to-cart-sauce-labs-onesie").click()
+    driver.find_element(
+        By.CSS_SELECTOR, "#add-to-cart-sauce-labs-backpack").click()
+    driver.find_element(
+        By.CSS_SELECTOR, "#add-to-cart-sauce-labs-bolt-t-shirt").click()
+    driver.find_element(
+        By.CSS_SELECTOR, "#add-to-cart-sauce-labs-onesie").click()
 
     # Переход в корзину
     driver.find_element(By.CLASS_NAME, 'shopping_cart_link').click()
 
     # Нажать Checkout
-    driver.find_element(By.XPATH, "//button[@id='checkout' and @data-test='checkout']").click()
+    driver.find_element(
+        By.XPATH, "//button[@id='checkout' and @data-test='checkout']").click()
 
     # Заполнить форму данными
     driver.find_element(By.ID, 'first-name').send_keys('Алевтина')
@@ -43,12 +45,10 @@ def test_buy_items_and_check_total(driver):
 
 
 # Прочитайте со страницы итоговую стоимость (Total)
-    total_element = driver.find_element(By.XPATH,
-    "//div[@class='summary_total_label' and @data-test='total-label']")
+    total_element = driver.find_element(
+        By.XPATH, "//div[@class='summary_total_label' and @data-test='total-label']")
     text = total_element.text
 
     # Проверьте, что итоговая сумма равна $58.29
 
     assert text == "Total: $58.29"
-
-

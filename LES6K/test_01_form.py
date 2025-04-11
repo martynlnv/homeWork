@@ -1,9 +1,6 @@
 import pytest
 from selenium import webdriver
 from selenium.webdriver.common.by import By
-from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
 
 
 @pytest.fixture
@@ -15,7 +12,8 @@ def driver():
 
 
 def test_form_validation(driver):
-    driver.get("https://bonigarcia.dev/selenium-webdriver-java/data-types.html")
+    driver.get(
+        "https://bonigarcia.dev/selenium-webdriver-java/data-types.html")
 
     driver.find_element(By.NAME, 'first-name').send_keys('Иван')
     driver.find_element(By.NAME, 'last-name').send_keys('Петров')
@@ -31,12 +29,12 @@ def test_form_validation(driver):
     # нажать на кнопку submit
     driver.find_element(By.CSS_SELECTOR, "button[type='submit']").click()
 
-
-    wait = WebDriverWait(driver, 15)
+    driver.implicitly_wait(5)
 
 # подсветка красным поля Zip
     zip_code_field = driver.find_element(By.CSS_SELECTOR, '#zip-code')
-    assert 'alert-danger' in zip_code_field.get_attribute('class'), 'Поле Zip code не подсвечено красным'
+    assert 'alert-danger' in zip_code_field.get_attribute('class'), \
+        'Поле Zip code не подсвечено красным'
 
 # подсветка остальных полей зеленым
     fields_to_check = {
@@ -54,4 +52,5 @@ def test_form_validation(driver):
     for name, expected_class in fields_to_check.items():
         field = driver.find_element(By.ID, name)
 
-    assert expected_class in field.get_attribute('class'), f'Поле {name} не подсвечено зеленым'
+    assert expected_class in field.get_attribute('class'), \
+        f'Поле {name} не подсвечено зеленым'
