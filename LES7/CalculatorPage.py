@@ -15,15 +15,11 @@ class CalculatorPage:
     def set_delay(self, seconds):
         input_field = self.driver.find_element(By.ID, 'delay')
         input_field.clear()
-        input_field.send_keys(seconds('46'))
+        input_field.send_keys(seconds)
 
-    def click_button(self, expression):
-        button = self.driver.find_element(expression)
-        button.click()
-        self.click_button(By.XPATH, '//span[text() = "7"]')
-        self.click_button(By.XPATH, '//span[text() = "+"]')
-        self.click_button(By.XPATH, '//span[text() = "8"]')
-        self.click_button(By.XPATH, '//span[text() = "="]')
+    def click_button(self, button):
+        self.driver.find_element(By.XPATH, f'//span[text() = "{button}"]').click()
+
 
     def wait_result(self, result):
         wait = WebDriverWait(self.driver, 46)

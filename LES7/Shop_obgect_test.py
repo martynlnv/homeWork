@@ -1,9 +1,6 @@
 import pytest
 from selenium import webdriver
-from login_page import LoginPage
-from main_page import MainPage
-from cart_page import CartPage
-from checkout_page import CheckoutPage
+from ShopPage import *
 
 @pytest.fixture
 def driver():
@@ -21,12 +18,10 @@ def test_purchases(driver):
 
     # Добавление товаров в корзину
     main_page = MainPage(driver)
-    main_page.add_product_to_cart_by_name('Sauce Labs Backpack')
-    main_page.add_product_to_cart_by_name('Sauce Labs Bolt T-Shirt')
-    main_page.add_product_to_cart_by_name('Sauce Labs Onesisie')
+    main_page.add_items_to_cart()
 
     # Переход в корзину
-    main_page.go_to_cart()
+    main_page.wait_for_cart_item()
 
     # Нажатие на кнопку
     cart_page = CartPage(driver)
@@ -34,10 +29,10 @@ def test_purchases(driver):
 
     # Заполнение формы данными
     checkout_page = CheckoutPage(driver)
-    checkout_page.enter_first_name('Алевтина')
-    checkout_page.enter_last_name('Смирнова')
-    checkout_page.enter_postal_code('198324')
+    checkout_page.enter_first_name_input()
+    checkout_page.enter_last_name_input()
+    checkout_page.enter_postal_code()
     checkout_page.click_continue()
 
     # Проверить, что итоговая сумма равна $58.29
-    assert total_price 'text' == "Total: $58.29"'
+    assert checkout_page.total_price() == "Total: $58.29"

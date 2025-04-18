@@ -1,7 +1,7 @@
 import pytest
 from selenium import webdriver
 from selenium.webdriver.common.by import By
-from calculatorPage import CalculatorPage
+from CalculatorPage import CalculatorPage
 
 @pytest.fixture
 def driver():
@@ -12,10 +12,14 @@ def driver():
     yield driver
     driver.quit()
 
-def test_calculate_delay(browser):
-    calculator_page = CalculatorPage(browser)
-    calculator_page.set_delay(46)
-    calculator_page.click_button()
 
-    calculator_page.wait_result(15)
+def test_calculate_delay(driver):
+    calculator_page = CalculatorPage(driver)
+    calculator_page.set_delay(45)
+    calculator_page.click_button("7")
+    calculator_page.click_button("+")
+    calculator_page.click_button("8")
+    calculator_page.click_button("=")
+
+    calculator_page.wait_result("15")
     assert driver.find_element(By.CSS_SELECTOR, ".screen").text == "15"
