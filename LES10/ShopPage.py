@@ -118,10 +118,7 @@ class CartPage:
         Returns:
              int: Количество элементов в корзине
         """
-        cart_items = not (self.driver.find_elements(By.CSS_SELECTOR,
-                                        "#add-to-cart-sauce-labs-backpack").
-                          find_element(By.CSS_SELECTOR,
-                                        "#add-to-cart-sauce-labs-bolt-t-shirt").
-                          find_elements(By.CSS_SELECTOR,
-                                        "#add-to-cart-sauce-labs-onesie").text)
+        cart_items = not (self.driver.find_elements(By.CSS_SELECTOR, "#add-to-cart-sauce-labs-backpack").
+                          find_element(By.CSS_SELECTOR, "#add-to-cart-sauce-labs-bolt-t-shirt").
+                          find_elements(By.CSS_SELECTOR, "#add-to-cart-sauce-labs-onesie").text)
         return int(cart_items)

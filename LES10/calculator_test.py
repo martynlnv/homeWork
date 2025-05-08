@@ -4,6 +4,7 @@ from selenium.webdriver.common.by import By
 from CalculatorPage import CalculatorPage
 import allure
 
+
 @pytest.fixture
 def driver():
     """Фикстура для инициализации и завершения работы драйвера"""
@@ -14,6 +15,7 @@ def driver():
             'https://bonigarcia.dev/selenium-webdriver-java/slow-calculator.html')
         yield driver
         driver.quit()
+
 
 @allure.title("Проверка вычислений с задержкой")
 @allure.description(
